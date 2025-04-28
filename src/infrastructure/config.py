@@ -8,7 +8,7 @@ class Settings(BaseSettings):
     version: str = "v1.0.0"
     SECRET_KEY: str = "a" * 32  # secrets.token_urlsafe(32)
     ALGORITHM: str = "HS256"
-    POSTGRES_DSN: str = "postgresql+asyncpg://postgres:postgres@localhost:5432/litestar"
+    POSTGRES_DSN: str = "postgresql+asyncpg://postgres:postgres@postgres:5432/litestar"
 
     # Настройки рабочих директорий проекта
     BASE_DIR: Path = Path(__file__).resolve().parent.parent.parent
