@@ -34,7 +34,7 @@ services:
     build:
       context: ..
       dockerfile: ./docker/Dockerfile
-    container_name: python-app
+    container_name: litestar_api
     working_dir: /app
     networks:
       litestar:
