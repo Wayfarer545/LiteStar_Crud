@@ -1,11 +1,10 @@
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select
-from sqlalchemy.testing.suite.test_reflection import users
 
-from domain.specifications.user_specs import UserSpecification
-from domain.entities.user import User as UserEntity
-from domain.ports.user_repository import UserRepository
-from infrastructure.db.models import User as UserModel
+from src.domain.specifications.user_specs import UserSpecification
+from src.domain.entities.user import User as UserEntity
+from src.domain.ports.user_repository import UserRepository
+from src.infrastructure.db.models import User as UserModel
 
 
 class SqlUserRepository(UserRepository):
@@ -52,18 +51,27 @@ class SqlUserRepository(UserRepository):
                 updated_at=user.updated_at
             ) for user in result.scalars().all()]
 
-    async def update(self, user: UserEntity) -> UserEntity:
-        db_user = await self.session.get(UserModel, user.id)
-        if db_user:
-            db_user.username = user.name
-            db_user.password_hash = user.password
-            await self.session.flush()
+    async def update(self, user_id: int, user: UserEntity) -> UserEntity | None:
+        db_user = await self.session.get(UserModel, user_id)
+        if db_user is None:
+            return None
+        db_user.name = user.name
+        db_user.surname = user.surname
+        db_user.password = user.password
+        await self.session.flush()
+        await self.session.refresh(db_user)
+        updated_user_dict = db_user.__dict__
+        user.id = updated_user_dict["id"]
+        user.created_at = updated_user_dict["created_at"]
+        user.updated_at = updated_user_dict["updated_at"]
         return user
 
-    async def delete(self, user_id: int) -> None:
+    async def delete(self, user_id: int) -> bool:
         db_user = await self.session.get(UserModel, user_id)
         if db_user:
             await self.session.delete(db_user)
             await self.session.flush()
+            return True
+        return False
 
 

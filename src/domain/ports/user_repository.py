@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 
-from domain.specifications.user_specs import UserSpecification
-from domain.entities.user import User
+from src.domain.specifications.user_specs import UserSpecification
+from src.domain.entities.user import User
 
 
 class UserRepository(ABC):
@@ -18,7 +18,7 @@ class UserRepository(ABC):
         ...
 
     @abstractmethod
-    async def update(self, user: User) -> User:
+    async def update(self, user_id: int, user: User) -> User:
         ...
 
     @abstractmethod

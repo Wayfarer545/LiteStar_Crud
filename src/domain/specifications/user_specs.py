@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 
-from infrastructure.db.models import User as UserModel
+from src.infrastructure.db.models import User as UserModel
 
 
 class UserSpecification(ABC):

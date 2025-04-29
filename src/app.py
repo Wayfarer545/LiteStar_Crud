@@ -1,6 +1,6 @@
 import uvicorn
 
-from presentation.api import app
+from src.presentation.api import app
 
 
 if __name__ == "__main__":

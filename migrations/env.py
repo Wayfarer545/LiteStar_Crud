@@ -5,11 +5,9 @@ from alembic import context
 from sqlalchemy.ext.asyncio import create_async_engine
 
 from src.infrastructure.config import settings
-from src.infrastructure.db.models import Base, User
+from src.infrastructure.db.models import BigIntAuditBase, User
 
-# Создаём асинхронный движок
 engine = create_async_engine(settings.POSTGRES_DSN, echo=False)
-
 
 config = context.config
 config.set_main_option("sqlalchemy.url", settings.POSTGRES_DSN)
@@ -18,7 +16,7 @@ config.set_main_option("sqlalchemy.url", settings.POSTGRES_DSN)
 if config.config_file_name is not None:
     fileConfig(config.config_file_name)
 
-target_metadata = Base.metadata
+target_metadata = BigIntAuditBase.metadata
 
 
 def run_migrations_offline():
@@ -36,11 +34,9 @@ def run_migrations_offline():
 async def run_migrations_online_async():
     """Запуск миграций в онлайн-режиме для асинхронного движка."""
     async with engine.connect() as connection:
-        # Конфигурируем контекст Alembic с синхронным соединением через run_sync
         await connection.run_sync(
             lambda conn: context.configure(connection=conn, target_metadata=target_metadata)
         )
-        # Выполняем миграции в рамках асинхронной транзакции
         async with connection.begin():
             await connection.run_sync(lambda conn: context.run_migrations())
 

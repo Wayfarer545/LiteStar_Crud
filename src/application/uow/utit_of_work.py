@@ -2,8 +2,8 @@ from abc import abstractmethod, ABC
 
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from adapters.repositories.sql_user_repository import SqlUserRepository
-from domain.ports.user_repository import UserRepository
+from src.adapters.repositories.sql_user_repository import SqlUserRepository
+from src.domain.ports.user_repository import UserRepository
 
 
 class AbstractUnitOfWork(ABC):

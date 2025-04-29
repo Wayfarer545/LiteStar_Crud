@@ -1,10 +1,8 @@
 from click import Group
 from litestar import Litestar
-from litestar.exceptions import HTTPException
 from litestar.plugins import CLIPluginProtocol
 
-from presentation.exceptions import app_exception_handler
-from presentation.routers.users import users_router
+from src.presentation.routers.users import users_router
 
 
 class CLIPlugin(CLIPluginProtocol):
@@ -16,7 +14,6 @@ class CLIPlugin(CLIPluginProtocol):
 
 app = Litestar(
     route_handlers=[users_router],
-    exception_handlers={HTTPException: app_exception_handler},
     dependencies={},
     plugins=[CLIPlugin()],
 )
