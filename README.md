@@ -10,12 +10,11 @@ Stack:
 - Poetry 1.8.3
 - Alembic 1.15.2
 - SQLAlchemy/Advanced-alchemy
-- Postgres 17
+- Postgres 17 
 - Docker/docker compose
 ___
 ### Запуск в docker контейнере
-На машине должен быть установлен и запущен docker и установлен  
-docker compose v2 плагин.
+На машине должен быть установлен docker и docker compose v2 плагин.
 1. Клонировать репозиторий и перейти в корень проекта:
     ```bash
    git clone https://github.com/Wayfarer545/LiteStar_Crud.git && cd LiteStar_Crud
@@ -24,7 +23,7 @@ docker compose v2 плагин.
    ```bash
    sudo docker compose -f ./docker/compose.yml up -d --build
    ```
-Конфигурация compose поднимает базу данных postgres 18, миграции накатываются при старте автоматически.  
+Конфигурация compose поднимает базу данных postgres 17, миграции накатываются при старте автоматически.  
 Данными для подключения: postgres/postgres, база данных litestar.  
 Переменные окружения для простоты внесены прямо в докерфайл, поэтому дополнительно ничего прописывать не нужно.
 
