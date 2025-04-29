@@ -8,8 +8,8 @@ RUN pip install --upgrade pip && \
 WORKDIR /app
 COPY pyproject.toml poetry.lock* /app/
 RUN poetry install --no-root
-
 COPY ./src .
+RUN poetry run alembic upgrade head
 
 EXPOSE 8000
 

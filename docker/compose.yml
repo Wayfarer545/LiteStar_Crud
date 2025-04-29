@@ -38,6 +38,12 @@ services:
     working_dir: /app
     networks:
       litestar:
+    environment:
+      PG_HOST: localhost
+      PG_PORT: 5432
+      PG_USER: postgres
+      PG_PASSWORD: postgres
+      PG_DATABASE: litestar
     ports:
       - "8000:8000"
     depends_on:

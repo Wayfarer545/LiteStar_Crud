@@ -13,16 +13,16 @@ Stack:
 - Postgres 17
 - Docker/docker compose
 ___
-### Запуск  
+### Запуск 
 На машине должен быть глобально установлен poetry.
 
 1. Клонировать репозиторий и перейти в корень проекта:
     ```bash
-   git clone git@github.com:Wayfarer545/LiteStar_Crud.git && cd LiteStar_Crud
+   git clone https://github.com/Wayfarer545/LiteStar_Crud.git && cd LiteStar_Crud
     ```
 2. Установить зависимости:
     ```bash
-    poetry install
+    poetry install --no-root
     ```
 3. Создать в корне проекта файл с переменными окружения .env по образу example.env:
 4. Применить миграции:
@@ -33,5 +33,20 @@ ___
    ```bash
    poetry run litestar --app src.app:app run
    ```
+### Запуск в docker контейнере
+На машине должен быть установлен и запущен docker и установлен  
+docker compose v2 плагин.
+1. Клонировать репозиторий и перейти в корень проекта:
+    ```bash
+   git clone https://github.com/Wayfarer545/LiteStar_Crud.git && cd LiteStar_Crud
+    ```
+2. выполнить:
+   ```bash
+   sudo docker compose -f ./docker/compose.yml up -d --build
+   ```
+Конфигурация compose поднимает базу данных postgres 18 со стандартными кредсами
+postgres/postgres и рабочей базой данных litestar.
+Переменные окружения для простоты занесены в compose.yml, поэтому дополнительно  
+ничего прописывать не нужно. 
 
 Автоматическая документация будет доступна по стандартным адресам лайтстар.
