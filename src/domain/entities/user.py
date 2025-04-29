@@ -4,9 +4,9 @@ from datetime import datetime
 
 @dataclass
 class User:
-    id: int
     name: str
     surname: str
     password: str
-    created_at: datetime
-    updated_at: datetime
+    id: int | None = None
+    created_at: datetime | None = None
+    updated_at: datetime | None = None

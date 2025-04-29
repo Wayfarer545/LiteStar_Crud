@@ -1,6 +1,5 @@
 from abc import ABC, abstractmethod
 
-from pydantic import UUID4
 from infrastructure.db.models import User as UserModel
 
 
@@ -11,7 +10,7 @@ class UserSpecification(ABC):
 
 
 class UserByIdSpecification(UserSpecification):
-    def __init__(self, user_id: UUID4):
+    def __init__(self, user_id: int):
         self.user_id = user_id
 
     def to_query(self, base_query):
@@ -19,8 +18,8 @@ class UserByIdSpecification(UserSpecification):
 
 
 class UserByNameSpecification(UserSpecification):
-    def __init__(self, username: str):
-        self.username = username
+    def __init__(self, name: str):
+        self.name = name
 
     def to_query(self, base_query):
-        return base_query.where(UserModel.username == self.username.lower())
+        return base_query.where(UserModel.name == self.name.lower())

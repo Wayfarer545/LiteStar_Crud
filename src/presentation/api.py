@@ -1,12 +1,22 @@
+from click import Group
 from litestar import Litestar
+from litestar.exceptions import HTTPException
+from litestar.plugins import CLIPluginProtocol
 
-from infrastructure.db.database import db_connection
-from presentation.routers.user import user
+from presentation.exceptions import app_exception_handler
+from presentation.routers.users import users_router
 
 
-# on the app
+class CLIPlugin(CLIPluginProtocol):
+    def on_cli_init(self, cli: Group) -> None:
+        @cli.command()
+        def is_debug_mode(app: Litestar):
+            print(app.debug)
+
+
 app = Litestar(
-    route_handlers=[user],
+    route_handlers=[users_router],
+    exception_handlers={HTTPException: app_exception_handler},
     dependencies={},
-    lifespan=[db_connection]
+    plugins=[CLIPlugin()],
 )
