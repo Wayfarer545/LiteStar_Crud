@@ -5,6 +5,8 @@ ___
 Stack:
 - python 3.12.9
 - LiteStar 2.15.2
+- litestar-granian
+- litestar-asyncpg (не имплементирован)
 - Poetry 1.8.3
 - Alembic 1.15.2
 - SQLAlchemy/Advanced-alchemy
@@ -27,9 +29,9 @@ ___
    ```bash
    poetry run alembic upgrade head
    ```
-5. Запустить сервис с помощью uvicorn на желаемом порту:
+5. Запустить сервис с помощью granian:
    ```bash
-   poetry run uvicorn src.app:app --host 0.0.0.0 --port 8000
+   poetry run litestar --app src.app:app run
    ```
 
 Автоматическая документация будет доступна по стандартным адресам лайтстар.
