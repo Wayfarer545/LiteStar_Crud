@@ -1,9 +1,8 @@
-version: "3.9"
-
 services:
   postgres:
     image: postgres:alpine
     container_name: postgres
+    hostname: postgres
     restart: unless-stopped
     environment:
       POSTGRES_USER: postgres
@@ -34,16 +33,11 @@ services:
     build:
       context: ..
       dockerfile: ./docker/Dockerfile
+    image: litestar_api:latest
     container_name: litestar_api
     working_dir: /app
     networks:
       litestar:
-    environment:
-      PG_HOST: localhost
-      PG_PORT: 5432
-      PG_USER: postgres
-      PG_PASSWORD: postgres
-      PG_DATABASE: litestar
     ports:
       - "8000:8000"
     depends_on:
